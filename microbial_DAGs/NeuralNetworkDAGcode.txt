@@ -1,0 +1,106 @@
+dag {
+bb="-5,-5,5,5"
+DRIVER [exposure,pos="4.500,0.000"]
+FUNCTION [outcome,pos="-4.500,2.500"]
+MED1 [pos="0.000,2.500"]
+MED2 [pos="0.000,3.500"]
+NOI1 [pos="0.000,-3.500"]
+NOI2 [pos="0.000,-2.500"]
+RES1 [pos="0.000,-1.500"]
+RES2 [pos="0.000,-0.500"]
+TRA1 [pos="0.000,0.500"]
+TRA2 [pos="0.000,1.500"]
+u1 [latent,pos="-1.000,-3.000"]
+u10 [latent,pos="1.000,-0.500"]
+u11 [latent,pos="1.000,0.500"]
+u12 [latent,pos="1.000,1.500"]
+u13 [latent,pos="1.000,2.500"]
+u14 [latent,pos="-2.000,-2.000"]
+u15 [latent,pos="-2.000,-1.000"]
+u16 [latent,pos="-2.000,0.000"]
+u17 [latent,pos="-2.000,1.000"]
+u18 [latent,pos="-2.000,2.000"]
+u19 [latent,pos="2.000,-1.500"]
+u2 [latent,pos="-1.000,-2.000"]
+u20 [latent,pos="2.000,-0.500"]
+u21 [latent,pos="2.000,0.500"]
+u22 [latent,pos="2.000,1.500"]
+u23 [latent,pos="-3.000,-1.000"]
+u24 [latent,pos="-3.000,0.000"]
+u25 [latent,pos="-3.000,1.000"]
+u26 [latent,pos="3.000,-0.500"]
+u27 [latent,pos="3.000,0.500"]
+u28 [latent,pos="-4.000,0.000"]
+u3 [latent,pos="-1.000,-1.000"]
+u4 [latent,pos="-1.000,0.000"]
+u5 [latent,pos="-1.000,1.000"]
+u6 [latent,pos="-1.000,2.000"]
+u7 [latent,pos="-1.000,3.000"]
+u8 [latent,pos="1.000,-2.500"]
+u9 [latent,pos="1.000,-1.500"]
+DRIVER -> FUNCTION [pos="3.447,4.009"]
+DRIVER -> RES1
+DRIVER -> RES2
+DRIVER -> TRA1
+DRIVER -> TRA2
+MED1 -> FUNCTION
+MED2 -> FUNCTION
+TRA1 -> FUNCTION
+TRA2 -> FUNCTION
+u1 -> NOI1
+u1 -> NOI2
+u10 -> RES1
+u10 -> TRA1
+u11 -> RES2
+u11 -> TRA2
+u12 -> MED1
+u12 -> TRA1
+u13 -> MED2
+u13 -> TRA2
+u14 -> NOI1
+u14 -> RES2
+u15 -> NOI2
+u15 -> TRA1
+u16 -> RES1
+u16 -> TRA2
+u17 -> MED1
+u17 -> RES2
+u18 -> MED2
+u18 -> TRA1
+u19 -> NOI1
+u19 -> TRA1
+u2 -> NOI2
+u2 -> RES1
+u20 -> NOI2
+u20 -> TRA2
+u21 -> MED1
+u21 -> RES1
+u22 -> MED2
+u22 -> RES2
+u23 -> NOI1
+u23 -> TRA2
+u24 -> MED1
+u24 -> NOI2
+u25 -> MED2
+u25 -> RES1
+u26 -> MED1
+u26 -> NOI1
+u27 -> MED2
+u27 -> NOI2
+u28 -> MED2
+u28 -> NOI1
+u3 -> RES1
+u3 -> RES2
+u4 -> RES2
+u4 -> TRA1
+u5 -> TRA1
+u5 -> TRA2
+u6 -> MED1
+u6 -> TRA2
+u7 -> MED1
+u7 -> MED2
+u8 -> NOI1
+u8 -> RES1
+u9 -> NOI2
+u9 -> RES2
+}

@@ -1,0 +1,26 @@
+dag {
+bb="-5,-5,5,5"
+DRIVER [exposure,pos="0.000,-2.000"]
+FUNCTION [outcome,pos="0.000,2.000"]
+meddler [pos="2.000,0.000"]
+noise [pos="-2.000,0.000"]
+responder [pos="0.750,0.000"]
+transmitter [exposure,pos="-0.750,0.000"]
+uD [latent,pos="-0.750,-2.750"]
+uF [latent,pos="0.750,2.750"]
+uM [latent,pos="2.750,-0.750"]
+uN [latent,pos="-2.750,-0.750"]
+uR [latent,pos="1.500,-0.750"]
+uT [latent,pos="-1.500,-0.750"]
+DRIVER -> FUNCTION
+DRIVER -> responder
+DRIVER -> transmitter
+meddler -> FUNCTION
+transmitter -> FUNCTION
+uD -> DRIVER
+uF -> FUNCTION
+uM -> meddler
+uN -> noise
+uR -> responder
+uT -> transmitter
+}

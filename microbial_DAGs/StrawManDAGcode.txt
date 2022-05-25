@@ -1,0 +1,14 @@
+dag {
+bb="-5,-5,5,5"
+DRIVER [exposure,pos="0.000,-2.000"]
+FUNCTION [outcome,pos="0.000,2.000"]
+MICROBES [pos="0.000,0.000"]
+uD [latent,pos="-0.750,-2.750"]
+uF [latent,pos="-0.750,1.250"]
+uM [latent,pos="-0.750,-0.750"]
+DRIVER -> MICROBES
+MICROBES -> FUNCTION
+uD -> DRIVER
+uF -> FUNCTION
+uM -> MICROBES
+}

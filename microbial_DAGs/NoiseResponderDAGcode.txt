@@ -1,0 +1,40 @@
+dag {
+bb="-5,-5,5,5"
+DRIVER [exposure,pos="-1.500,-2.750"]
+FUNCTION [outcome,pos="0.750,-2.000"]
+meddler [pos="0.750,1.500"]
+noise [pos="2.250,0.000"]
+responder [pos="-2.250,0.000"]
+transmitter [pos="-0.750,0.000"]
+u1 [latent,pos="-1.500,-0.750"]
+u2 [latent,pos="-1.500,0.750"]
+u3 [latent,pos="-1.500,1.500"]
+u4 [latent,pos="1.250,-0.750"]
+u5 [latent,pos="1.250,0.000"]
+u6 [latent,pos="2.250,1.500"]
+uD [latent,pos="-2.250,-3.500"]
+uF [latent,pos="0.000,-2.750"]
+uPROBLEM [adjusted,pos="2.250,-1.500"]
+DRIVER -> FUNCTION
+DRIVER -> responder
+DRIVER -> transmitter
+meddler -> FUNCTION
+meddler -> u3
+meddler -> u6
+noise -> u5
+responder -> u2
+transmitter -> FUNCTION
+u1 -> responder
+u1 -> transmitter
+u2 -> transmitter
+u3 -> responder
+u4 -> noise
+u4 -> transmitter
+u5 -> transmitter
+u6 -> noise
+uD -> DRIVER
+uF -> FUNCTION
+uPROBLEM -> FUNCTION
+uPROBLEM -> noise
+}
+

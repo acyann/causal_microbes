@@ -1,0 +1,52 @@
+dag {
+bb="-5,-5,5,5"
+DRIVER [exposure,pos="1.500,0.000"]
+FUNCTION [pos="-1.500,0.000"]
+meddler1 [pos="-3.000,-1.000"]
+meddler2 [pos="-1.000,-2.000"]
+noise1 [pos="3.000,1.000"]
+noise2 [pos="1.000,2.000"]
+responder1 [pos="1.000,-2.000"]
+responder2 [pos="3.000,-1.000"]
+transmitter1 [outcome,pos="-3.000,1.000"]
+transmitter2 [outcome,pos="-1.000,2.000"]
+u1 [latent,pos="-2.500,2.250"]
+u10 [latent,pos="0.500,-1.000"]
+u2 [latent,pos="-3.500,0.000"]
+u3 [latent,pos="-2.500,-2.250"]
+u4 [latent,pos="0.000,-2.500"]
+u5 [latent,pos="2.500,-2.250"]
+u6 [latent,pos="3.500,0.000"]
+u7 [latent,pos="2.500,2.250"]
+u8 [latent,pos="0.000,2.500"]
+u9 [latent,pos="1.750,1.000"]
+DRIVER -> FUNCTION
+DRIVER -> responder1
+DRIVER -> responder2
+DRIVER -> transmitter1
+DRIVER -> transmitter2
+meddler1 -> FUNCTION
+meddler2 -> FUNCTION
+transmitter1 -> FUNCTION
+transmitter2 -> FUNCTION
+u1 -> transmitter1
+u1 -> transmitter2
+u10 -> meddler2
+u10 -> noise2
+u2 -> meddler1
+u2 -> transmitter1
+u3 -> meddler1
+u3 -> meddler2
+u4 -> meddler2
+u4 -> responder1
+u5 -> responder1
+u5 -> responder2
+u6 -> noise1
+u6 -> responder2
+u7 -> noise1
+u7 -> noise2
+u8 -> noise2
+u8 -> transmitter2
+u9 -> responder2
+u9 -> transmitter2
+}
