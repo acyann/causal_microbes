@@ -97,3 +97,54 @@ while(t < tmax) {
 #   then N1 would update and this NEW value would be used for dN2
 # In this form, the model just prints (every 1000 time steps) to the console,
 #   so this will need to be modified to let me store the data
+
+# Saving LV model runs ======
+# initial pop sizes
+N1 <- 0.01
+N2 <- 0.01
+# per capita growth rates
+r1 <- 0.5
+r2 <- 0.8
+# interaction coefficients
+s11 <- -0.08
+s12 <- -0.03
+s21 <- -0.09
+s22 <- -0.06
+
+# simulation conditions
+t <- 0
+dt <- 0.0001
+tmax <- 75
+step_size <- 0
+write.step <- 1000
+line.out <- tmax/dt/write.step
+line.count <- 1
+
+# initialize storage vectors
+t.out <- rep(NA, times = line.out)
+N1.out <- rep(NA, times = line.out)
+N2.out <- rep(NA, times = line.out)
+
+# run the simulation
+while(t < tmax) {
+  dN1 <- (r1 + s11*N1 + s12*N2)*N1*dt
+  dN2 <- (r2 + s21*N1 + s22*N2)*N2*dt
+  
+  N1 <- N1 + dN1; if(N1 < 0) N1 <- 0
+  N2 <- N2 + dN2; if(N2 < 0) N2 <- 0
+  
+  t <- t + dt; step_size <- step_size + 1
+  if(step_size==write.step) {
+    t.out[line.count] <- t
+    N1.out[line.count] <- N1
+    N2.out[line.count] <- N2
+    line.count <- line.count + 1
+    step_size = 0
+  }
+}
+
+# data are now stored in individual vectors: t.out, N1.out, N2.out
+plot(NULL, xlim = c(0, 75), xlab = "time", ylim = c(0, 12), ylab = "pop. size")
+lines(x = t.out, y = N2.out, col = "orange", lwd = 2)
+lines(x = t.out, y = N1.out, col = "blue", lwd = 2)
+# this matches Lehman et al. 2019, Fig. 8.2 
