@@ -159,11 +159,11 @@ lines(x = t.out, y = N1.out, col = "blue", lwd = 2)
 
 # Output vectors are now in the function's scope
 
-generalized_LV <- function(N, r, s, dt = 0.001, tmax = 75) {
+generalized_LV <- function(N, r, s, dt = 0.0001, tmax = 75) {
   # simulation conditions
   t <- 0
   step_count <- 0
-  write.step <- 1/dt
+  write.step <- 1/dt/10
   line.out <- tmax/dt/write.step
   line.count <- 1
   
@@ -192,7 +192,9 @@ generalized_LV <- function(N, r, s, dt = 0.001, tmax = 75) {
       step_count = 0
     }
   }
-  return( cbind(t.out, N1.out, N2.out) )
+  OUT <- cbind(t.out, N1.out, N2.out)
+  colnames(OUT) <- c("t", "N1", "N2")
+  return(OUT)
 }
 
 # let's give it a go
@@ -208,3 +210,5 @@ plot(NULL, xlim = c(0, 75), xlab = "time", ylim = c(0, 12), ylab = "pop. size")
 lines(x = test.run[,1], y = test.run[,3], col = "orange", lwd = 2)
 lines(x = test.run[,1], y = test.run[,2], col = "blue", lwd = 2)
 # this matches Lehman et al. 2019, Fig. 8.2
+
+# GLV model with environmental drivers ======
