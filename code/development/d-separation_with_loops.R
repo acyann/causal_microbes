@@ -98,7 +98,7 @@ while(t < tmax) {
 # In this form, the model just prints (every 1000 time steps) to the console,
 #   so this will need to be modified to let me store the data
 
-# Saving LV model runs ======
+## saving LV model runs ======
 # initial pop sizes
 N1 <- 0.01
 N2 <- 0.01
@@ -147,4 +147,64 @@ while(t < tmax) {
 plot(NULL, xlim = c(0, 75), xlab = "time", ylim = c(0, 12), ylab = "pop. size")
 lines(x = t.out, y = N2.out, col = "orange", lwd = 2)
 lines(x = t.out, y = N1.out, col = "blue", lwd = 2)
-# this matches Lehman et al. 2019, Fig. 8.2 
+# this matches Lehman et al. 2019, Fig. 8.2
+
+## make it a function ======
+# I changed (internal to the function) step_size to step_count; just makes
+#   more sense given what it's doing
+# 
+# This function now expects N and r to be length = 2 vectors
+#   and s to be a 2 by 2 matrix; 
+#   makes it more straightforward to extend to more species, if desired
+
+# Output vectors are now in the function's scope
+
+generalized_LV <- function(N, r, s, dt = 0.001, tmax = 75) {
+  # simulation conditions
+  t <- 0
+  step_count <- 0
+  write.step <- 1/dt
+  line.out <- tmax/dt/write.step
+  line.count <- 1
+  
+  # initialize storage vectors
+  t.out <- rep(NA, times = line.out)
+  N1.out <- rep(NA, times = line.out)
+  N2.out <- rep(NA, times = line.out)
+  
+  # run the simulation
+  N1 <- N[1]
+  N2 <- N[2]
+  
+  while(t < tmax) {
+    dN1 <- (r[1] + s[1,1]*N1 + s[1,2]*N2)*N1*dt
+    dN2 <- (r[2] + s[2,1]*N1 + s[2,2]*N2)*N2*dt
+    
+    N1 <- N1 + dN1; if(N1 < 0) N1 <- 0
+    N2 <- N2 + dN2; if(N2 < 0) N2 <- 0
+    
+    t <- t + dt; step_count <- step_count + 1
+    if(step_count==write.step) {
+      t.out[line.count] <- t
+      N1.out[line.count] <- N1
+      N2.out[line.count] <- N2
+      line.count <- line.count + 1
+      step_count = 0
+    }
+  }
+  return( cbind(t.out, N1.out, N2.out) )
+}
+
+# let's give it a go
+
+N <- c(0.01, 0.01)
+r <- c(0.5, 0.8)
+s <- matrix(data = c(-0.08, -0.03, -0.09, -0.06),
+            nrow = 2, byrow = TRUE)
+
+test.run <- generalized_LV(N = N, r = r, s = s)
+
+plot(NULL, xlim = c(0, 75), xlab = "time", ylim = c(0, 12), ylab = "pop. size")
+lines(x = test.run[,1], y = test.run[,3], col = "orange", lwd = 2)
+lines(x = test.run[,1], y = test.run[,2], col = "blue", lwd = 2)
+# this matches Lehman et al. 2019, Fig. 8.2
